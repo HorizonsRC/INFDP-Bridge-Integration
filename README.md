@@ -1,5 +1,5 @@
 # INFDP Bridge Integration
-This project is for pulling the data from [https://bridge-infdp.teurukahika.govt.nz/api/v1/docs/](bridge-infdp) and making the database for it.
+This project is for pulling the data from [bridge-infdp](https://bridge-infdp.teurukahika.govt.nz/api/v1/docs/) and making the database for it.
 
 ## water_farm.py
 This is the file you want to run. It expects a config file.
