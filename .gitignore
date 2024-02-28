@@ -1,0 +1,7 @@
+# Ignore config and log files
+*.log
+*.cfg
+
+# Ignore .vscode and __pycache__
+/.vscode/
+/__pycache__/
