@@ -2,7 +2,18 @@
 This project is for pulling the data from [bridge-infdp](https://bridge-infdp.teurukahika.govt.nz/api/v1/docs/) and making the database for it.
 
 ## water_farm.py
-This is the file you want to run. It expects a config file.
+This is the file you want to run. It expects a config file that looks like this
+```
+[logging]
+LogLevel = debug 
+LogName = {File to log to without extension}
+
+[server_info]
+ServerName = {ODBC server to connect to}
+Database = {Database on the ODBC server to connect to}
+Driver = {ODBC driver to use}
+```
+
 
 ## odbc_handler.py
 A way of using an ODBC database programatically in Python instead of having to write SQL code in the cursor manually.
