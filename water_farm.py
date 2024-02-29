@@ -2,10 +2,11 @@ from odbc_handler import ODBCHandler
 from common_functions import *
 import logging
 from water_farm_tables import create_tables
+from infdp_normalizer import *
 
 # Swap which one is in use by commenting it out. The real API doesn't exist yet and *will not* function!
-import infdp_bridge_api_test as infdp_bridge_api
-#import infdp_bridge_api
+from infdp_bridge_api_test import *
+#from infdp_bridge_api import *
 
 config = load_config("water_farm.cfg")
 
@@ -34,39 +35,24 @@ if __name__ == "__main__":
     # Make tables.
     create_tables(odbc)
 
-    # Inserting the document.
-    odbc.big_insert("documents", infdp_bridge_api.get_document(1))
+    odbc.big_insert("documents", get_document(1))
 
-    # Inserting the certification.
-    data = infdp_bridge_api.get_certification(1)
-    data["document_id"] = data["documents"][0]["document_id"]
-    odbc.big_insert("certifications", data)
+    cert = get_certification(1)
 
-    # Inserting land uses, whatever that is. It is for some unknown reason a list, unlike everything else, so we have to retrieve the dictionary from that list.
-    odbc.big_insert("land_uses", infdp_bridge_api.get_land_uses()[0])
+    odbc.big_insert("certifications", normalize_cert(cert))
+
+    
+    odbc.big_insert("land_uses", get_land_uses()[0])
 
     # Inserting user.
-    odbc.big_insert("users", infdp_bridge_api.get_user(1))
-
-    # Inserting audit.
-    data = infdp_bridge_api.get_audit(1)
-    data["document_id"] = data["documents"][0]["document_id"]
-    odbc.big_insert("audits", data)
-
-    cert = infdp_bridge_api.get_certification(1)
-
-    odbc.big_insert("farm", cert["farm"])
-    odbc.big_insert("address", cert["farm"]["address"])
-    odbc.big_insert("operator", cert["farm"]["operator"])
-    
-    odbc.big_insert("fwfp_developer", cert["farm"]["fwfp_developer"])
-    odbc.big_insert("boundaries", cert["farm"]["boundaries"])
-
-    # Inserting the fresh water farm plan. It looks funky because we have to get the ID of the foreign keys, that's just how the data is returned.
-    data = infdp_bridge_api.get_fwfps_by_id(1)
-    data["certification_id"] = data["certifications"][0]["certification_id"]
-    data["audit_id"] = data["audits"][0]["audit_id"]
-    odbc.big_insert("fwfp", data)
+    odbc.big_insert("users", get_user(1))
+    odbc.big_insert("audits", normalize_audit(get_audit(1)))
+    odbc.big_insert("farm", normalize_farm(cert))
+    odbc.big_insert("address", normalize_address(cert))
+    odbc.big_insert("operator", normalize_operator(cert))
+    odbc.big_insert("fwfp_developer", normalize_fwfp_dev(cert))
+    odbc.big_insert("boundaries", normalize_boundaries(cert))
+    odbc.big_insert("fwfp", normalize_fwfp(get_fwfps_by_id(1)))
 
     odbc.commit()
 

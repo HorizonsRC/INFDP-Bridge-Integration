@@ -171,7 +171,7 @@ class ODBCHandler:
         columns = ', '.join(data_list.keys())
         values = ', '.join([f"'{value}'" for value in data_list.values()])
         query = f"INSERT INTO {table_name} ({columns}) VALUES ({values})"
-
+        logging.debug(f"Query: {query}")
         try:
             self.cursor.execute(query)
             if self.auto_commit:
@@ -346,3 +346,11 @@ class ODBCHandler:
         """
         self.cursor.commit()
         logging.debug(f"Data commited.")
+
+INT_ID = "INT IDENTITY(1,1)"
+LONG_CHAR = "VARCHAR(300)"
+MED_CHAR = "VARCHAR(255)"
+SHORT_CHAR = "VARCHAR(100)"
+DATE = "DATE"
+BOOL = "BIT"
+TIMESTAMP = "VARCHAR(25)"
