@@ -1,4 +1,3 @@
-from pickle import LONG
 from odbc_handler import *
 
 # This function creates all of the tables in the database. It isn't finished yet.

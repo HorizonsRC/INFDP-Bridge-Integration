@@ -1,5 +1,4 @@
 import json
-import requests
 import logging
 
 # Everything here only returns the example. Used for testing while the actual API isn't there.
