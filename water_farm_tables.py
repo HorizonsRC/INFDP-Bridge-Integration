@@ -52,9 +52,9 @@ def create_tables(odbc: ODBCHandler):
     odbc.create_table("fwfp",
         {"fwfp_id": SHORT_CHAR,
         "PRIMARY KEY": "(fwfp_id)",
-        "created_at": TIMESTAMP,
         "certification_id": SHORT_CHAR,
         "audit_id": SHORT_CHAR,
+        "created_at": TIMESTAMP,
         "FOREIGN KEY (audit_id)": "REFERENCES audits(audit_id)",
         "FOREIGN KEY (certification_id)": "REFERENCES certifications(certification_id)"
         })
