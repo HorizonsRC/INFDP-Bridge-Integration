@@ -1,0 +1,1 @@
+git+http://liquidbit.co.nz:3000/SolidLiquid/python-common.git

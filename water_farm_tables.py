@@ -1,4 +1,4 @@
-from odbc_handler import *
+from odbc.odbc_handler import *
 
 # This function creates all of the tables in the database. It isn't finished yet.
 def create_tables(odbc: ODBCHandler):
@@ -30,7 +30,7 @@ def create_tables(odbc: ODBCHandler):
         "created_at": TIMESTAMP,
         "updated_at": TIMESTAMP,
         "completed_at": TIMESTAMP,
-        "FOREIGN KEY": "(document_id) REFERENCES documents(document_id)"
+        "FOREIGN KEY": reference("document_id","documents","document_id")
         })
     
     odbc.create_table("audits",

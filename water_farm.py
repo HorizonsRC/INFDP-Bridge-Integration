@@ -1,5 +1,5 @@
-from odbc_handler import ODBCHandler
-from common_functions import *
+from odbc.odbc_handler import ODBCHandler
+from utils.common_functions import *
 import logging
 from water_farm_tables import create_tables
 from infdp_normalizer import *
